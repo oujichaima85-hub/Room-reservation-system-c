@@ -1,0 +1,8 @@
+Facture pour reservation 3
+Client : yosr
+Salle : Salle B
+Date : 2025-12-12
+Horaire : 12:00 - 20:00
+Duree (heures) : 8.00
+Tarif horaire : 35.50 EUR
+Montant total : 284.00 EUR

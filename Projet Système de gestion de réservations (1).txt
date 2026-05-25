@@ -1,0 +1,163 @@
++Projet: Système de gestion de reservation des salles  
+
+Application en C (console) pour petites entreprises et espaces de coworking. 
+
+Fonctionnalités : 
+
+Gestion des salles (depuis un fichier de configuration “config_salles.txt”). 
+
+*Réservation : 
+
+- Création avec vérification de la disponibilité (pas de chevauchement). 
+
+- Vérification de la capacite de la salle. 
+
+- Calcul automatique du montant : “tarif horaire durée (heures)”. 
+
+*Gestion des tarifs : 
+
+-Chaque salle a son propre tarif horaire défini dans config_salles.txt. 
+
+*Facturation : 
+
+- Génération d'une facture texte par réservation (“FACTURE_<ID>.txt”) 
+
+*Statistiques : 
+
+- Chiffre d'affaires par salle 
+
+- Nombre de réservations par mois 
+
+- Salles les plus populaires (top 3 par nombre de réservations) 
+
+*Persistance : 
+
+- Chargement et sauvegarde de toutes les réservations dans “reservations.txt” 
+
+- Sauvegarde automatique après chaque modification 
+
+*Tache supplémentaire : 
+
+- Gestion des ‘statuts’ des réservations : “EN_ATTENTE”, “CONFIRMEE”, “ANNULEE”, “FACTUREE” 
+
+- Annulation de réservation et marquage comme facturée 
+
+Modèle de données : 
+
+1\Salle : 
+
+Champs (dans “config_salles.txt”) :{ 
+
+	-nom :  nom de la salle 
+
+	-capacité : nombre maximal de personnes 
+
+	-tarif_horaire : tarif par heure 
+
+	-équipements :  liste textuelle d'équipements 
+
+} 
+
+Format d'une ligne dans “config_salles.txt” : nom;capacite;tarif_horaire;equipements 
+
+2\Réservation : 
+
+Champs (stockes dans “reservations.txt”) :{ 
+
+	-id : identifiant unique 
+
+	-nom-client : nom du client 
+
+	-nom_salle : nom de la salle 
+
+	-date : “YYYY-MM-DD” 
+
+	- heure_debut : “HH :MM” 
+
+	- heure_fin : “HH :MM” 
+
+	- nombre_personnes 
+
+	- tarif_horaire  :  tarif de la salle au moment de la réservation 
+
+	- montant_total :   tarif_horaire × durée 
+
+	- statut  
+
+} 
+
+Format d'une ligne dans “reservations.txt” : 
+
+id;nom_client;nom_salle;date;heure_debut;heure_fin;nombre_personnes;tarif_horaire;montant_total;statut 
+
+Utilisation de l’application : 
+
+*Menu principale : 
+
+1. Afficher les salles 
+
+ -Affiche toutes les salles connues avec capacite et tarif horaire . 
+
+2. Gestion des reservations : 
+
+- Accès au sous-menu réservations. 
+
+3. Statistiques : 
+
+- Accès au sous-menu statistiques. 
+
+0. Quitter : 
+
+- Sauvegarde les réservations dans “reservations.txt” puis quitte . 
+
+*Sous-menu Réservations :  
+
+Créer une réservation : 
+
+- Choix de la salle  
+
+- Saisie du client, date, heures de debut/fin, nombre de personnes 
+
+- Verification de : 
+
+    - La capacite de la salle. 
+
+    - L'absence de chevauchement avec une autre reservation (name salle, name date, statut non annule). 
+
+- Calcul automatique : durée en heures, montant total. 
+
+- Statut initial : “CONFIRMEE”. 
+
+ - Sauvegarde dans `reservations.txt 
+
+  2. Afficher toutes les réservations :  
+
+-Affiche chaque réservation avec son statut 
+
+  3. Annuler une reservation: 
+
+         - Saisie d'un ID. 
+
+  - Passage du statut et `ANNULEE` et sauvegarde. 
+
+4. Facturer une reservation : 
+
+ - Saisie d'un ID. 
+
+  - Generation d'un fichier texte “FACTURE_<ID>.txt”. 
+
+  - Passage du statut et “FACTUREE” et sauvegarde. 
+
+*Sous-menu Statistiques : 
+
+1. Chiffre d'affaires par salle: 
+
+- Somme des montants des reservations non annulées par salle. 
+
+2.Nombre de reservations par mois : 
+
+- Comptage des reservations non annulées par mois (quelque soit l'année) 
+
+3. Salles les plus populaires : 
+
+- Classement des 3 salles ayant le plus de reservations (non annulées). 

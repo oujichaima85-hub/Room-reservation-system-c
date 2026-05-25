@@ -1,0 +1,3 @@
+Salle A;10;20.0;Ecran, WiFi
+Salle B;20;35.5;Projecteur, Tableau blanc
+Salle C;5;15.0;WiFi, Prise RJ45
